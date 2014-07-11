@@ -1,14 +1,8 @@
 package com.coderme.action;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,7 +29,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.coderme.bean.Article;
 import com.coderme.bean.User;
-import com.coderme.core.util.VerifyCodeUtil;
 import com.coderme.service.ArticleService;
 import com.coderme.service.UserService;
 
@@ -108,15 +101,8 @@ public class LoginAction {
         }else{  
             token.clear();  
         }  
-        List<Article> texts = new ArrayList<Article>();
-		try {
-			texts = articleService.findAllArticle();
-		} catch (Exception e) {
-			model.addAttribute("errorMsg", e.getMessage());
-		}
         model.addAttribute("userName", username);
-        model.addAttribute("textList", texts);
-        return resultPageURL;  
+        return "redirect:/"+resultPageURL;
 	}
 	
 	@RequestMapping(value="/logout",method = RequestMethod.GET)
@@ -125,16 +111,7 @@ public class LoginAction {
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.logout();
 
-        List<Article> texts = new ArrayList<Article>();
-		try {
-			texts = articleService.findAllArticle();
-		} catch (Exception e) {
-			model.addAttribute("errorMsg", e.getMessage());
-		}
-		System.out.println(texts);
-		
-		model.addAttribute("textList", texts);
-		return "mainPage";
+		return "redirect:/mainPage";
 	}
 	
 	
