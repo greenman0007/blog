@@ -33,10 +33,10 @@ public class FileServer {
 		if (null != port && port.length()>0) {
 			PORT = Integer.valueOf(port);
 		}
-		server = new Server(PORT);
-		if (server.isRunning()) {
+		if (null != server && server.isRunning()) {
 			return null;
 		}
+		server = new Server(PORT);
 		if (null == addr) {
 			addr = "/";
 		}
@@ -60,8 +60,10 @@ public class FileServer {
 	@RequestMapping(value="stop",method = RequestMethod.GET)
 	@ResponseBody
 	public String stop() throws Exception {
-		server.stop();
+		if (null != server && server.isRunning()) {
+			server.stop();
+		}
 		
-		return Server.getVersion()+"\br fileServer start @" + new Date();
+		return Server.getVersion()+"\br fileServer STOP @" + new Date();
 	}
 }
