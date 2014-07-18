@@ -435,3 +435,18 @@ ul.style1 li {
 
 ul.style1 a {
 }
+
+/* 提示信息样式 */
+.alert-center {
+	width:180px;
+    height:180px;
+	/*display:table-cell;
+	vertical-align:middle;
+	text-align:center;
+	width:180px;
+    height:180px;
+    position:relative;
+    border: 1px solid #eee;*/
+    margin:10px auto;
+}
+
